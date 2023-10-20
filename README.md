@@ -5,4 +5,3 @@ Este repositorio incluye actividades llevadas a cabo en el módulo _Desarrollo d
 | Ejercicio  | Descripcion |
 | ------------- | ------------- |
 | [Actividad 5](./tema0/actividad5)  | Visita los enlaces dados para prácticar los servidores y publica en github los ejemplos realizados  |
-| ejercicio2  | desc  |
