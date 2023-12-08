@@ -14,4 +14,22 @@ Ahora para instalar Apache2 ejecuta el siguiente comando:
 
 `sudo apt install apache2`
 
-Una vez que la instalación se complete, deberá ajustar la configuración de su firewall para permitir tráfico HTTP y HTTPS.
+Una vez que la instalación se complete, deberá ajustar la configuración de su firewall para permitir tráfico HTTP y HTTPS. Para enumerar todos los perfiles de aplicaciones de UFW disponibles, puede ejecutar lo siguiente:
+
+`sudo ufw app list`
+
+Resultado del comando:
+
+![Imagen con el resultado del comando anterior](./img/3.png)
+
+Por ahora, es mejor permitir conexiones únicamente en el puerto 80, ya que se trata de una instalación nueva de Apache.
+
+Para permitir tráfico únicamente en el puerto 80 utilice el perfil Apache:
+
+`sudo ufw allow in "Apache"`
+
+Para verificar el cambio puede usar: 
+
+`sudo ufw status`
+
+![Imagen con el resultado del comando anterior](./img/5.png)
