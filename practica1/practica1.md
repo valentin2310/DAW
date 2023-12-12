@@ -77,7 +77,9 @@ Dentro del fichero añadimos nuestros nuevos dominios.
 
 ![Imagen con el resultado del comando anterior](./img/7.png)
 
-A continuación vamos a crear un archivo de configuración en `/etc/apache2/sites-available`, por ejemplo: `WordPress.conf`.
+## 5. Prepara WordPress
+
+Vamos a crear un archivo de configuración en `/etc/apache2/sites-available`, por ejemplo: `WordPress.conf`.
 
 Para ello podemos usar el siguiente comando:
 
@@ -105,5 +107,76 @@ Ahora, tienes que comprobar si la configuración de Apache es correcta ejecutand
 
 ![Imagen con el resultado del comando anterior](./img/14.png)
 
-## 5. Configurar e instalar WordPress
+## 6. Configurar e intalar WordPress
 
+Vamos a configurar WordPress a través del navegador, para ello primero intala el paquete wget.
+
+`sudo apt install wget -y`
+
+![Imagen con el resultado del comando anterior](./img/15.png)
+
+A continuación, utiliza el comando wget seguido del enlace de descarga de WordPress:
+
+`wget https://wordpress.org/latest.zip`
+
+![Imagen con el resultado del comando anterior](./img/16.png)
+
+Una vez que hayas descargado el archivo comprimido, instala la utilidad de descompresión utilizando estos comandos:
+
+`sudo apt install unzip -y`
+
+![Imagen con el resultado del comando anterior](./img/17.png)
+
+Ahora tendrás que mover el archivo al directorio correcto antes de descomprimirlo. Utiliza el comando:
+
+`mv latest.zip /var/www/wordpress`
+
+A continuación, navega hasta el directorio y descomprime el archivo utilizando estos comandos:
+
+`cd /var/www/wordpress`
+`unzip latest.zip`
+
+Después, utiliza el siguiente comando para mover el directorio:
+
+`mv -f wordpress/* ./`
+
+Una vez hecho esto, reinicia Apache utilizando estos comandos:
+
+`sudo systemctl restart apache2
+sudo chown -R www-data:www-data /var/www/`
+
+Ahora vamos a activar nuestro WordPress, para ello usamos el siguiente comando seguido del nombre de configuración del fichero de configuración sin la extension .conf:
+
+`sudo a2ensite WordPress`
+
+Reiniciamos apache y comprobamos si está todo correcto.
+
+`systemctl reload apache2`
+
+`sudo apache2ctl configtest`
+
+![Imagen con el resultado del comando anterior](./img/21.png)
+
+Termina de configurar WordPress a través de un navegador web. Abre un navegador web y escribe la dirección IP del servidor.
+
+Primero nos pedirá que seleccionemos el idioma.
+Luego completamos el formulario para conectar wordpress con la base de datos.
+En usuario colocamos el que creamos en la base de datos y la base de datos también la que creamos anteriormente.
+
+![Imagen con el resultado del comando anterior](./img/22.png)
+
+Empezamos la instalación.
+
+![Imagen con el resultado del comando anterior](./img/23.png)
+
+Configuramos nuestro sitio web y por último le damos a intalar WordPress.
+
+![Imagen con el resultado del comando anterior](./img/24.png)
+
+Iniciamos sesión en WordPress con el usuario que creamos en el formulario anterior.
+
+![Imagen con el resultado del comando anterior](./img/25.png)
+
+Y eso es todo, ya tenemos WordPress.
+
+![Imagen con el resultado del comando anterior](./img/26.png)
