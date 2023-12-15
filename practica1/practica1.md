@@ -180,3 +180,92 @@ Iniciamos sesión en WordPress con el usuario que creamos en el formulario anter
 Y eso es todo, ya tenemos WordPress.
 
 ![Imagen con el resultado del comando anterior](./img/26.png)
+
+## 7. Servidor Web con Python
+
+En principio, necesitamos hacer que Apache, incorpore un soporte para servir archivos Python. Para ello, necesitaremos habilitarle un módulo, que brinde este soporte.
+
+Para habilitar mod_wsgi en Apache, basta con instalar el paquete libapache2-mod-wsgi:
+
+`sudo apt-get install libapache2-mod-wsgi-py3`
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/8.png)
+
+Ahora vamos a crear la estructura de carpetas de nuestro proyecto.
+
+Primero creamos nuestro directorio.
+
+Dentro de este directorio, vamos a dividir su arquitectura en dos partes:
+
+1. Destinada al almacenaje de nuestra aplicación Python pura (será un directorio privado, no servido).
+2. Destinada a servir la aplicación (directorio público servido) en el cuál solo almacenaremos archivos estáticos.
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/2.png)
+
+Aprovecharemos este paso, para crear una carpeta, destinada a almacenar los logs de errores y accesos a nuestra Web App:
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/3.png)
+
+Vamos a crear un controlador para la aplicación, que estará almacenado en nuestro directorio mypythonapp.
+
+`echo '# -*- coding: utf-8 -*-' > mypythonapp/controller.py`
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/4.png)
+
+Este archivo controller.py actuará como un pseudo front controller, siendo el encargado de manejar todas las peticiones del usuario, haciendo la llamada a los módulos correspondientes según la URI solicitada.
+
+Dentro del archivo vamos a introducir el siguiente cógido:
+
+`
+def application(environ, start_response):
+
+    # Genero la salida HTML a mostrar al usuario
+
+    output = u"<p>Bienvenido a mi <b>PythonApp</b>!!!</p>".encode('utf-8')
+
+
+
+    # Inicio una respuesta al navegador
+
+    start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8')])
+
+
+
+    # Retorno el contenido HTML como bytes
+
+    return [output]
+`
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/5.png)
+
+Ahora vamos a configurar nuestro VirtualHost, para ello nos vamos a la configuración de nuestro sitio web:
+
+`sudo nano /etc/apache2/sites-available/servidor-python.conf`
+
+Dentro del archivo escribimos el siguiente codigo.
+
+Mientras que el DocumentRoot de nuestro sitio Web, será la carpeta pública, public_html, una variable del VirtualHost, será la encargada de redirigir todas las peticiones públicas del usuario, hacia nuestro front controller. Y la variable que se encargue de esto, será el alias WSGIScriptAlias:
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/7.png)
+
+Ahora solo queda habilitar el sitio web, recargar apache y comprobar que todo este correcto.
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/10.png)
+
+Vamos a comprobar nuestro sitio web.
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/servidor_funcionando.png)
+
+### Añadir autenticación de usuario (opcional)
+
+Para ello vamos a crear un archivo .htpasswd para almacenar el usuario y contraseña.
+
+`htpasswd -c /home/valentinac/servidor-python/.htpasswd usuario`
+
+Luego vamos a cambiar el archivo de configuración de nuestro sitio web, vamos a modificarlo para que quede de la siguiente forma:
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/validacion_usuario.png)
+
+Recargamos apache y probamos nuestro sitio web de nuevo.
+
+![Imagen con el resultado del comando anterior](./img/servidor_python/servidor_funcionando.png)
