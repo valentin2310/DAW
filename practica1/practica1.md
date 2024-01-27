@@ -63,8 +63,6 @@ Podemos comprobar si se ha instalado correctamente ejecutando el siguiente coman
 
 ![Imagen con el resultado del comando anterior](./img/11.png)
 
-### Comprobar el funcionamiento de PHP (Opcional)
-
 ## 4. Crear un host virtual
 
 Lo primero será crear ir al archivo `/etc/hosts` y añadir los nuevos dominios.
@@ -217,7 +215,8 @@ Este archivo controller.py actuará como un pseudo front controller, siendo el e
 Dentro del archivo vamos a introducir el siguiente cógido:
 
 `
-def application(environ, start_response):
+
+    def application(environ, start_response):
 
     # Genero la salida HTML a mostrar al usuario
 
@@ -234,6 +233,7 @@ def application(environ, start_response):
     # Retorno el contenido HTML como bytes
 
     return [output]
+
 `
 
 ![Imagen con el resultado del comando anterior](./img/servidor_python/5.png)
