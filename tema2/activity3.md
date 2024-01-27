@@ -97,7 +97,7 @@ Nombre:  dns-1.uhu.es
 Address:  150.214.167.1
 ```
 
-## Ejercicio 7. *Comprueba que el DNS inverso está bien configurado para www.bp.com
+## Ejercicio 7. Comprueba que el DNS inverso está bien configurado para www.bp.com
 
 Comando: `nslookup bp.com`
 
