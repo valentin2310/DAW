@@ -1,9 +1,9 @@
 # Activity 3
 
-## Ejercicio 1
-**La UHU (Universidad de Huelva) tiene varios servidores DNS. Consulta a tu servidro DNS por defecto sus direcciones IP al menos 2 de ellas.**
+## Ejercicio 1. La UHU (Universidad de Huelva) tiene varios servidores DNS. Consulta a tu servidro DNS por defecto sus direcciones IP al menos 2 de ellas.
 
 Comando: `nslookup .type=ns uhu.es`
+
 Respuesta: 
 ```
 Servidor:  dns.google
@@ -21,6 +21,7 @@ uhu.es  nameserver = dns-1.uhu.es
 ```
 
 Comando: `NSLOOKUP dns-1.uhu.es`
+
 Respusta:
 ```
 Servidor:  dns.google
@@ -32,6 +33,7 @@ Address:  150.214.167.1
 ```
 
 Comando: `NSLOOKUP dns.uhu.es`
+
 Respuesta:
 ```
 Servidor:  dns.google
@@ -42,15 +44,14 @@ Nombre:  dns.uhu.es
 Address:  150.214.167.1
 ```
 
-## Ejercicio 2
-**¿Son las respuestas anteriores autoritativas?**
+## Ejercicio 2. ¿Son las respuestas anteriores autoritativas?
 
 Son no autoritativas, porque son servidores recursivos que consultan la información a los servidores DNS autoritativos para encontrar la dirección IP conrrecta.
 
-## Ejercicio 3
-**Consulta la dirección IP de un servidor de correo de uhu.es.**
+## Ejercicio 3. Consulta la dirección IP de un servidor de correo de uhu.es.
 
 Comando: `nslookup -type=mx uhu.es dns.uhu.es`
+
 Respuesta:
 ```
 Servidor:  dns.uhu.es
@@ -60,15 +61,14 @@ uhu.es  MX preference = 10, mail exchanger = mx04.puc.rediris.es
 uhu.es  MX preference = 10, mail exchanger = mx03.puc.rediris.es
 ```
 
-## Ejercicio 4
-**¿Son las respuestas anteriores autoritativas?**
+## Ejercicio 4. ¿Son las respuestas anteriores autoritativas?
 
 Si, porque la respuesta viene del servidor autoritativo del dominio. Además comprobamos que puede existir más de un servidor autoritativo para el mismo dominio.
 
-## Ejercicio 5
-**Si hay más de un servidor dns autoritativo para el mismo dominio uhu.es, ¿Cómo sabemos cuál es el primario?¿En qué fecha se actualizó por última vez?¿Cúal es la dirección e-mail del administrador?**
+## Ejercicio 5. Si hay más de un servidor dns autoritativo para el mismo dominio uhu.es, ¿Cómo sabemos cuál es el primario?¿En qué fecha se actualizó por última vez?¿Cúal es la dirección e-mail del administrador?
 
 Comando: `nslookup -type=soa uhu.es dns.uhu.es`
+
 Respuesta:
 ```
 Servidor:  dns.uhu.es
@@ -84,10 +84,10 @@ uhu.es
         default TTL = 900 (15 mins)
 ```
 
-## Ejercicio 6
-**Comprueba que el DNS inverso está bien configurado para dns-1.uhu.es.**
+## Ejercicio 6. Comprueba que el DNS inverso está bien configurado para dns-1.uhu.es.
 
 Comando: `nslookup 150.214.167.1`
+
 Respuesta:
 ```
 Servidor:  dns.google
@@ -97,10 +97,10 @@ Nombre:  dns-1.uhu.es
 Address:  150.214.167.1
 ```
 
-## Ejercicio 7
-**Comprueba que el DNS inverso está bien configurado para www.bp.com**
+## Ejercicio 7. *Comprueba que el DNS inverso está bien configurado para www.bp.com
 
 Comando: `nslookup bp.com`
+
 Respuesta:
 ```
 Servidor:  dns.google
@@ -112,6 +112,7 @@ Address:  54.72.215.189
 ```
 
 Comando: `nslookup 54.72.215.189`
+
 Respuesta:
 ```
 Servidor:  dns.google
@@ -121,12 +122,12 @@ Nombre:  ec2-54-72-215-189.eu-west-1.compute.amazonaws.com
 Address:  54.72.215.189
 ```
 
-## Ejercicio 8
-**Por defecto, el comando NSLOOKUP devuelve los registrs de tipo A. ¿Qué se obtiene al consultar los registrso NS?.**
+## Ejercicio 8. Por defecto, el comando NSLOOKUP devuelve los registrs de tipo A. ¿Qué se obtiene al consultar los registrso NS?.
 
 Se obtienen los servidores autoritativos para un dominio.
 
 Comando: `nslookup`
+
 Respuesta:
 ```
 Servidor predeterminado:  dns.google
@@ -148,10 +149,10 @@ uhu.es  nameserver = dns-1.uhu.es
 uhu.es  nameserver = master.infoblox
 ```
 
-## Ejercicio 9
-**Consulta el TLD de las páginas de España: "es".**
+## Ejercicio 9. Consulta el TLD de las páginas de España: "es".
 
 Comando: `nslookup es`
+
 Respuesta:
 ```
 Servidor:  dns.google
@@ -160,12 +161,12 @@ Address:  8.8.8.8
 Nombre:  es.
 ```
 
-## Ejercicio 10
-**¿Se obtiene alguna respuesta?**
+## Ejercicio 10. ¿Se obtiene alguna respuesta?
 
 No, porque por defecto se buscan registros de tipo A y tipo AAAA. Como "es" no es un FQN, lo lógico es buscar registros NS para saber qué servidores lo resuelven.
 
 Comando: `nslookup -type=ns es`
+
 Respuesta:
 ```
 Servidor:  dns.google
@@ -178,10 +179,10 @@ es  	nameserver = g.nic.es
 es  	nameserver = h.nic.es
 ```
 
-## Ejercicio 11
-**Consulta las direcciones IP de www.google.com.**
+## Ejercicio 11. Consulta las direcciones IP de www.google.com.
 
 Comando: `nslookup google.com`
+
 Respuesta:
 ```
 Servidor:  dns.google
@@ -193,12 +194,10 @@ Addresses:  2a00:1450:4003:802::200e
       	142.250.185.14
 ```
 
-## Ejercicio 12
-**¿Puede un mismo nombre de dominio traducirse en varias direcciones IP distintas?**
+## Ejercicio 12. ¿Puede un mismo nombre de dominio traducirse en varias direcciones IP distintas?
 
 Si, por motivos de disponibilidad: si un servidor se avería, los otros pueden mantener el servicio.
 
-## Ejercicio 13
-**¿Quién decide a cuál de las direcciones IP se envía una petición?**
+## Ejercicio 13. ¿Quién decide a cuál de las direcciones IP se envía una petición?
 
 El solucionador local es quien toma la decisión, ordenando todos los registro A recibidos aleatoriamente y atualizando el primero de la lista. De esa forma se produce un balanceo de carga entre todos los servidores.
