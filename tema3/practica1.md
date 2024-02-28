@@ -10,9 +10,12 @@ El servidor contará con las siguientes funcionalidades que deberán ser automat
 - Los clientes podrán acceder mediante ftp para la administración de archivos configurando adecuadamente TLS
 - Se habilitará el acceso mediante ssh y sftp. 
 
+
+
 ## Crear y configurar servidor
 
 Se sobreentiende que ya tenemos instalado Apache con la pila LAMP, en caso de que no aquí, dejo un link: [Como instalar la pila LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04-es)
+
 
 ### Crear host
 
@@ -23,6 +26,7 @@ sudo nano /etc/hosts
 ```
 
 ![Imagen del fichero /etc/hosts](./img/fichero_hosts.png)
+
 
 ### Configurar hosts virtuales
 
@@ -98,9 +102,12 @@ Si vamos a `http://alojamiento` nos deberá mostrar nuestro index.html
 
 ![Funcionamiento de index.html en el servidor web](./img/probar_index.png)
 
+
+
 ## Crear usuarios y directorios
 
 Los usuarios con sus respectivos directorios los vamos a crear con un script.
+
 
 ### Configurar Virtual Host
 
@@ -139,6 +146,7 @@ Reiniciamos apache.
 ```
 sudo systemctl restart apache2
 ```
+
 
 ### Crear script
 
@@ -207,6 +215,7 @@ echo "Directorio del usuario: $user_home/public_html"
 echo "Proceso completado."
 ```
 
+
 ### Probar script
 
 Para ejecutarlo necesitamos darle permisos de ejecución:
@@ -227,11 +236,14 @@ Si vamos a nuestro navegador y ponemos la ruta del nuevo usuario nos mostrará e
 
 ![Prueba del directorio del nuevo usuario creado con el script](./img/directorio_usuario_prueba.png)
 
+
+
 ## Crear base de datos sql para phpmyadmin
 
 Para este apartado vamos a tener que tener instaldo phpmyadmin, en caso de que aún no lo tengas instalado mira el siguiente tutorial: [Como instalar phpmyadmin](https://www.swhosting.com/es/comunidad/manual/como-instalar-y-proteger-phpmyadmin-en-ubuntu-2204)
 
 Cuando tengamos ya instalado phpmyadmin vamos a proceder a la creación de nuestro script, este creará un usuario con una base de datos teniendo este todos los permisos sobre dicha base de datos.
+
 
 ### Creación del script
 
@@ -278,6 +290,7 @@ sudo mysql -u root -p -e "GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'phpmyadmin'@'
 echo "Usuario de MariaDB agregado a phpMyAdmin."
 ```
 
+
 ### Probar script
 
 Para ejecutarlo necesitamos darle permisos de ejecución:
@@ -302,6 +315,8 @@ Si vamos phpmyadmin y accedemos con el nuevo usuario vamos a comprobar que efect
 
 ![Phpmyadmin con la bd del usuario](./img/phpmyadmin_verificar_db.png)
 
+
+
 ## Activar ftp para los usuarios con TLS
 
 Para realizar este apartada vamos a instalar el daemon `vsftpd`
@@ -315,6 +330,7 @@ Una vez completada la instalación, haremos una copia de seguridad del archivo o
 ```
 sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.original
 ```
+
 
 ### Permitir el tráfico FTP
 
@@ -334,6 +350,7 @@ sudo ufw status
 ```
 
 ![Ejecución de los comandos anteriores más el estado del firewall ufw](./img/permitir_trafico_ftp_ufw.png)
+
 
 ### Configurar vsftpd
 
@@ -356,6 +373,7 @@ Por último añadiremos al final del fichro algunas configuraciones más.
 - Para garantizar que haya una cantidad considerable de conexiones disponibles, limitaremos la cantidad de puertos utilizados en el archivo de configuración.
 
 ![Fichero vsftpd.conf configuraciones extra](./img/vsftpd_conf_extra.png)
+
 
 ### Configurar TLS
 
@@ -400,6 +418,7 @@ Por último vamos a reiniciar vsftpd
 sudo systemctl restart vsftpd
 ```
 
+
 ### Probar conexión con FileZilla
 
 Primero vamos a instalar FileZilla.
@@ -418,9 +437,12 @@ Si todo funciona correctamente nos deberá aparecer el directorio del usuario co
 
 ![Conexión exitosa al directorio del usuario en FileZilla](./img/ftp_filezilla_exito.png)
 
+
+
 ## Habilitar aplicaciones Python con el servidor web
 
 Vamos a crear un script para poder permitir que se ejecuten aplicaciones Python en el servidor web.
+
 
 ### Crear script
 
@@ -466,3 +488,79 @@ Vamos a ejecutar el script nos mostrará el siguiente output.
 ```
 
 ![Output del script habilitar-py.sh](./img/script_habilitar_py_output.png)
+
+
+
+## Crear subdominio
+
+Vamos a crear un subdominio en el servidor DNS con la resolución directa e inversa.
+
+
+### Crear script
+
+El script lo vamos a crear en el mismo subdirectorio que creamos los anteiores scripts.
+
+```
+sudo nano subdominio-dns.sh
+```
+
+Dentro colocaremos el siguiente código.
+
+```
+#!/bin/bash
+
+#crear_subdominio.sh nombre_subdominio ip
+if [ $# -le 1 ];then
+   echo Error!. Introduce subdominio e IP!
+   exit 1;
+fi
+
+# Variables
+USER=$1
+IP=$2
+SUB_DOMAIN="${USER}.alojamiento"
+DOCUMENT="/var/www/alojamiento/${USER}"
+ZONE_FILE="/etc/bind/db.alojamiento"
+
+echo "Actualizando fichero de zona"
+echo "\$ORIGIN ${SUB_DOMAIN}."  >>$ZONE_FILE
+echo "@ IN  A   ${IP}"  >>$ZONE_FILE
+echo "www   IN  A   ${IP}"  >>$ZONE_FILE
+
+echo "Reiniciar servicios"
+service apache2 reload > /dev/null
+service bind9 reload > /dev/null
+service proftpd reload > /dev/null
+```
+
+
+### Probar script
+
+Para ejecutarlo necesitamos darle permisos de ejecución:
+
+```
+chmod +x subdomino-dns.sh
+```
+
+Vamos a ejecutar el script nos mostrará el siguiente output.
+
+```
+./subdomino-dns.sh nombre-subdominio ip-servidor
+```
+
+![Output del script subdominio-dns.sh](./img/script_subdominio_output.png)
+
+
+### Comprobar subdominio con dig
+
+Por último vamos a probar que se ha creado el subdominio correctamente.
+
+```
+dig nombre-subdominio.alojamiento
+```
+
+![Prueba con dig si existe el subdominio creado por el script](./img/dig_subdominio.png)
+
+Ahora vamos a probar dig inverso.
+
+![Prueba con dig inverso si existe el subdominio creado por el script](./img/dig_subdominio_inverso.png)
