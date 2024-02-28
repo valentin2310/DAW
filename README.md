@@ -13,3 +13,8 @@ Este repositorio incluye actividades llevadas a cabo en el módulo _Desarrollo d
 | [Actividad 3](./tema2/activity3.md) | Actividad 3 del tema DNS |
 | [Actividad 4](./tema2/activity4.md) | Actividad 4 del tema DNS |
 | [Actividad 5](./tema2/activity5.md) | Instalar y configurar bin9 como servidor caché y forwarding |
+
+## Tema 3 - Servidores de transferencia de archivos
+| Ejercicio | Descripción |
+| ------------- | ------------- |
+| [Práctica 1](./tema3/practica1.md) | Servidor de alojamiento web |
