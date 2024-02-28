@@ -12,11 +12,11 @@ El servidor contará con las siguientes funcionalidades que deberán ser automat
 
 ## Crear y configurar servidor
 
-Se sobreentiende que ya tenemos instalado Apache con la pila LAMP, en caso de que no aquí dejo un link: [Como instalar la pila LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04-es)
+Se sobreentiende que ya tenemos instalado Apache con la pila LAMP, en caso de que no aquí, dejo un link: [Como instalar la pila LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04-es)
 
 ### Crear host
 
-Para empezar necesitar crear un nuevo servidor, asique primero necesitamos definir nuestro host para ello vamos a añadirlo al fichero de hosts.
+Para empezar necesitamos crear un nuevo servidor, asique primero definiremos nuestro host, para ello vamos a añadirlo al fichero de hosts.
 
 ```
 sudo nano /etc/hosts
@@ -36,8 +36,7 @@ A continuación, asignamos la propiedad del directorio con la ariable de entorno
 
 ```
 sudo chown -R $USER:$USER /var/www/alojamiento
-```
-```
+
 sudo chmod -R 755 /var/www/alojamiento
 ```
 
@@ -293,7 +292,7 @@ Vamos a ejecutar el script nos mostrará el siguiente output.
 ./create-db.sh nombre-usuario
 ```
 
-![Output del script create-db.sh](./img/script_crear_db_output.png.png)
+![Output del script create-db.sh](./img/script_crear_db_output.png)
 
 Comprobamos que efectivamente se ha creado el usuario con su base de datos y privilegios.
 
@@ -334,7 +333,7 @@ Luego vamos a ver el estado del firewall
 sudo ufw status
 ```
 
-![Ejecución de los comandos anteriores más el estado del firewall ufw](./img/permitir_trafico_ftp%20_ufw.png)
+![Ejecución de los comandos anteriores más el estado del firewall ufw](./img/permitir_trafico_ftp_ufw.png)
 
 ### Configurar vsftpd
 
@@ -350,13 +349,13 @@ En el mismo archivo, procederemos a eliminar # y a habilitar el write_enable:
 
 También descomentaremos `chroot_local_user`, ten en cuenta que hay 2 líneas como esta.
 
-![Fichero vsftpd.conf descomentar chroot_local_user](./img/vsftpd_conf_chroot.png.png)
+![Fichero vsftpd.conf descomentar chroot_local_user](./img/vsftpd_conf_chroot.png)
 
 Por último añadiremos al final del fichro algunas configuraciones más. 
 - En primer lugar, se agregará un user_sub_token en la ruta del directorio local_root. Esto permitirá que la configuración funcione con el usuario actual y con cualquier otro usuario que se agregue posteriormente.
 - Para garantizar que haya una cantidad considerable de conexiones disponibles, limitaremos la cantidad de puertos utilizados en el archivo de configuración.
 
-![Fichero vsftpd.conf configuraciones extra](./img/vsftpd_conf_extra.png.png.png)
+![Fichero vsftpd.conf configuraciones extra](./img/vsftpd_conf_extra.png)
 
 ### Configurar TLS
 
@@ -417,7 +416,7 @@ Crearemos una nueva conexión para conectarnos con un usuario creado por los scr
 
 Si todo funciona correctamente nos deberá aparecer el directorio del usuario con su carpeta public_html
 
-![Conexión exitosa al directorio del usuario en FileZilla](./img/ftp_filezilla_exito.png.png)
+![Conexión exitosa al directorio del usuario en FileZilla](./img/ftp_filezilla_exito.png)
 
 ## Habilitar aplicaciones Python con el servidor web
 
