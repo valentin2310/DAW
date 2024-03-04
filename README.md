@@ -18,3 +18,8 @@ Este repositorio incluye actividades llevadas a cabo en el módulo _Desarrollo d
 | Ejercicio | Descripción |
 | ------------- | ------------- |
 | [Práctica 1](./tema3/practica1.md) | Servidor de alojamiento web |
+
+## Tema 5 - Introducción a Docker
+| Ejercicio | Descripción |
+| ------------- | ------------- |
+| [Práctica 2](./tema5/practica2.md) | Introducción a Docker |
