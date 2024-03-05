@@ -150,6 +150,7 @@ sudo docker build -t getting-started .
 ```
 
 El flag `-t` sirve para darle un tag(etiqueta para reconocer la imagen).
+
 Al final con `.` indicamos el directorio donde debe buscar el Dockerfile, en este caso en este mismo directorio.
 
 ![Output de la creación de la imagen anterior](./img/crear_imagen.png)
@@ -164,7 +165,8 @@ Tenemos que indicarle la imagen que queremos usar para crear el contenedor.
 sudo docker run -dp 127.0.0.1:3000:3000 getting-started
 ```
 
-La flag `-d` sirve para ejecutar en contenedor de fondo. Podemos verficar que se ha iniciado correctamente con el comando ``` sudo docker ps ```
+La flag `-d` sirve para ejecutar en contenedor de fondo. Podemos verficar que se ha iniciado correctamente con el comando ``` sudo docker ps ```.
+
 La flag `-p` sirve para mapear los puertos del host y contenedor. `HOST:CONTAINER`. Luego podremos visualizar nuestra app corriendo en `localhost:3000`.
 
 ![Output del comando docker run](./img/docker_run.png)
@@ -182,6 +184,8 @@ Para probar la app vamos a ir al navegador y ponermos `localhost:3000`.
 Para publicar nuestra imagen primero debemos tener una cuenta en Docker Hub, [Crear cuenta en Docker Hub](https://hub.docker.com)
 
 ![La pagina de docker login](./img/docker_login.png)
+
+Esta es mi cuenta de Docker Hub:
 
 ![Mi cuenta de docker hub](./img/mi_cuenta.png)
 
