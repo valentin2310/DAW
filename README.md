@@ -24,4 +24,5 @@ Este repositorio incluye actividades llevadas a cabo en el módulo _Desarrollo d
 | ------------- | ------------- |
 | [Práctica 2](./tema5/practica2/practica2.md) | Introducción a Docker |
 | [Práctica 3](./tema5/practica3/practica3.md) | Ejercicios de la práctica 3 |
-| [Práctica 3](./tema5/practica4/practica4.md) | Ejercicios de la práctica 4 |
+| [Práctica 4](./tema5/practica4/practica4.md) | Ejercicios de la práctica 4 |
+| [Práctica 5](./tema5/practica5/practica5.md) | Ejercicios de la práctica 5 |
