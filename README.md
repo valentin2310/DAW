@@ -22,4 +22,5 @@ Este repositorio incluye actividades llevadas a cabo en el módulo _Desarrollo d
 ## Tema 5 - Introducción a Docker
 | Ejercicio | Descripción |
 | ------------- | ------------- |
-| [Práctica 2](./tema5/practica2.md) | Introducción a Docker |
+| [Práctica 2](./tema5/practica2/practica2.md) | Introducción a Docker |
+| [Práctica 3](./tema5/practica3/practica3.md) | Ejercicios de la práctica 3 |
