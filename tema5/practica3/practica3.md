@@ -1,6 +1,6 @@
 # Práctica 3. Docker
 
-## Descarga la imagenes
+## Descarga imagenes
 
 Para esta práctica vamos a descargar las siguiente imagenes:
 
